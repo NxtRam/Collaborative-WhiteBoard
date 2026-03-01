@@ -17,6 +17,9 @@ function Register() {
     setError('');
     setLoading(true);
 
+    // debug output to ensure fetch is being called and API_URL is correct
+    console.log('handleRegister called', { name, email, API_URL });
+
     try {
       const response = await fetch(`${API_URL}/users/register`, {
         method: 'POST',
@@ -26,6 +29,8 @@ function Register() {
         body: JSON.stringify({ name, email, password }),
       });
 
+      // log status for debugging
+      console.log('registration response status:', response.status);
       const data = await response.json();
 
       if (!response.ok) {
@@ -36,6 +41,7 @@ function Register() {
       alert('Registration successful! Please login.');
       navigate('/login');
     } catch (error) {
+      console.error('Registration error:', error);
       setError(error.message);
     } finally {
       setLoading(false);

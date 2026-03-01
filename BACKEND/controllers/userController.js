@@ -7,6 +7,7 @@ const registerUser = async (req, res) => {
         const { name, email, password } = req.body;
         const newUser = await userModel.register(name, email, password);
         res.status(201).json(newUser);
+        console.log(req);
     }           
     catch (error) {
         res.status(400).json({ error: error.message });
