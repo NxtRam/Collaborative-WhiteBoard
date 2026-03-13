@@ -23,17 +23,8 @@ function Board() {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-    
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-    
-    return () => {
-      window.removeEventListener('resize', resizeCanvas);
-    };
+    canvas.width = 3000;
+    canvas.height = 3000;
   }, []);
 
   useEffect(() => {
@@ -113,7 +104,7 @@ function Board() {
   };
 
   return (
-    <>
+    <div className={classes.canvasContainer}>
       {toolActionType === TOOL_ACTION_TYPES.WRITING && (
         <textarea
           type="text"
@@ -135,7 +126,7 @@ function Board() {
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
       />
-    </>
+    </div>
   );
 }
 

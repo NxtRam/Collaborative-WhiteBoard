@@ -1,15 +1,19 @@
-#canvas {
-  display: block;
-  position: fixed;
+.canvasContainer {
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+}
+
+#canvas {
+  display: block;
   touch-action: none;
 }
 
 .textElementBox {
-  position: fixed;
+  position: absolute;
   border: none;
   background: transparent;
   resize: none;

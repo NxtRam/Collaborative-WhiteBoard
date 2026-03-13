@@ -11,6 +11,16 @@ import {
 } from "../utils/element";
 import getStroke from "perfect-freehand";
 
+const getCoordinates = (event) => {
+  const canvas = document.getElementById("canvas");
+  if (!canvas) return { clientX: event.clientX, clientY: event.clientY };
+  const rect = canvas.getBoundingClientRect();
+  return {
+    clientX: event.clientX - rect.left,
+    clientY: event.clientY - rect.top,
+  };
+};
+
 const boardReducer = (state, action) => {
   switch (action.type) {
     case BOARD_ACTIONS.LOAD_ELEMENTS: {
@@ -209,9 +219,9 @@ const BoardProvider = ({ children, initialElements }) => {
   // Emit canvas update event when a draw/erase action completes (history index changes)
   useEffect(() => {
     const indexChanged = boardState.index !== previousIndexRef.current;
-    const actionBecameNone = previousActionTypeRef.current !== TOOL_ACTION_TYPES.NONE && 
-                             boardState.toolActionType === TOOL_ACTION_TYPES.NONE;
-    
+    const actionBecameNone = previousActionTypeRef.current !== TOOL_ACTION_TYPES.NONE &&
+      boardState.toolActionType === TOOL_ACTION_TYPES.NONE;
+
     // Emit event when: 
     // 1. History index changed (drawing/erasing completed)
     // 2. Action type became NONE (drawing/erasing ended)
@@ -221,7 +231,7 @@ const BoardProvider = ({ children, initialElements }) => {
         detail: { elements: boardState.elements }
       }));
     }
-    
+
     previousIndexRef.current = boardState.index;
     previousActionTypeRef.current = boardState.toolActionType;
   }, [boardState.index, boardState.toolActionType, boardState.elements]);
@@ -237,7 +247,7 @@ const BoardProvider = ({ children, initialElements }) => {
 
   const boardMouseDownHandler = (event, toolboxState) => {
     if (boardState.toolActionType === TOOL_ACTION_TYPES.WRITING) return;
-    const { clientX, clientY } = event;
+    const { clientX, clientY } = getCoordinates(event);
     if (boardState.activeToolItem === TOOL_ITEMS.ERASER) {
       dispatchBoardAction({
         type: BOARD_ACTIONS.CHANGE_ACTION_TYPE,
@@ -261,7 +271,7 @@ const BoardProvider = ({ children, initialElements }) => {
 
   const boardMouseMoveHandler = (event) => {
     if (boardState.toolActionType === TOOL_ACTION_TYPES.WRITING) return;
-    const { clientX, clientY } = event;
+    const { clientX, clientY } = getCoordinates(event);
     if (boardState.toolActionType === TOOL_ACTION_TYPES.DRAWING) {
       dispatchBoardAction({
         type: BOARD_ACTIONS.DRAW_MOVE,
