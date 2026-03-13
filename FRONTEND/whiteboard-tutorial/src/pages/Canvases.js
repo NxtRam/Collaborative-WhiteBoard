@@ -1,6 +1,5 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import themeContext from '../store/theme-context';
 import { API_URL } from '../config';
 import {
   FolderKanban,
