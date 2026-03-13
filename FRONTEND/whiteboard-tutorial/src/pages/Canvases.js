@@ -5,16 +5,12 @@ import { API_URL } from '../config';
 import {
   FolderKanban,
   Users,
-  Activity,
-  Settings,
-  LayoutDashboard,
   LogOut,
   Plus,
   Edit3,
   Share2,
   Clock,
-  Layers,
-  ChevronDown
+  Layers
 } from 'lucide-react';
 
 function Canvases() {
@@ -30,7 +26,6 @@ function Canvases() {
   const [sharing, setSharing] = useState(false);
   const [shareSuccess, setShareSuccess] = useState('');
   // Theme context is kept for potential future use or state but we are forcing light mode per specs.
-  const { toggleTheme } = useContext(themeContext);
   const navigate = useNavigate();
 
   const fetchCanvases = async () => {

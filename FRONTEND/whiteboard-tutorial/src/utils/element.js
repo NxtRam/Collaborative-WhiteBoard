@@ -173,7 +173,7 @@ export const deserializeElements = (elements) => {
   if (!elements || !Array.isArray(elements)) return [];
   
   return elements.map(element => {
-    const { id, x1, y1, x2, y2, type, stroke, fill, size, points, text } = element;
+    const { id, x1, y1, x2, y2, type, stroke, fill, size, points } = element;
     
     // Reconstruct the element with roughEle or path
     switch (type) {

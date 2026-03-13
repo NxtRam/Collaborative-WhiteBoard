@@ -24,12 +24,11 @@ import {
 } from "react-icons/fa";
 import { LuRectangleHorizontal } from "react-icons/lu";
 
-function CanvasContent({ canvasId, canvasName }) {
-  const { elements, activeToolItem, changeToolHandler, undo, redo, loadElements, clearAll } = useContext(boardContext);
+ function CanvasContent({ canvasId, canvasName }) {
+   const { activeToolItem, changeToolHandler, undo, redo, loadElements, clearAll } = useContext(boardContext);
   const { isDarkMode, toggleTheme } = useContext(themeContext);
   const navigate = useNavigate();
   const [saveStatus, setSaveStatus] = useState('saved');
-  const saveTimeoutRef = useRef(null);
   const socketRef = useRef(null);
   const isRemoteUpdateRef = useRef(false);
 
